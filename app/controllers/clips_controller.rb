@@ -1,5 +1,6 @@
 class ClipsController < ApplicationController
   before_action :set_clip, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!, except: [:index, :show]
 
   # GET /clips
   # GET /clips.json

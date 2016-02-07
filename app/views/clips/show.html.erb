@@ -1,12 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Title:</strong>
-  <%= @clip.title %>
+  <h1><%= @clip.title %></h1>
+  
 </p>
 
 <p>
-  <strong>Eurl:</strong>
   <%= sanitize@clip.eurl, :tags=>['iframe']%>
 </p>
 
