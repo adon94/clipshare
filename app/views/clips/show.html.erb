@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @clip.title %>
+</p>
+
+<p>
+  <strong>Eurl:</strong>
+  <%= sanitize@clip.eurl, :tags=>['iframe']%>
+</p>
+
+<%= link_to 'Edit', edit_clip_path(@clip) %> |
+<%= link_to 'Back', clips_path %>
