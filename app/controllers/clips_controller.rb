@@ -14,7 +14,7 @@ class ClipsController < ApplicationController
 
   # GET /clips/new
   def new
-    @clip = Clip.new
+    @clip = current_user.clips.build
   end
 
   # GET /clips/1/edit
@@ -24,7 +24,7 @@ class ClipsController < ApplicationController
   # POST /clips
   # POST /clips.json
   def create
-    @clip = Clip.new(clip_params)
+    @clip = current_user.clips.build(clip_params)
 
     respond_to do |format|
       if @clip.save
