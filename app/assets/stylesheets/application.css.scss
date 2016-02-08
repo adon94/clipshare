@@ -22,8 +22,26 @@
 	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: -1px;
+	padding: 15px 0;
 	a {
 		color: #FFFFFF;
+	}
+}
+
+#main_content {
+	#content {
+		float: none;
+	}
+	padding-bottom: 100px;
+	.clip {
+		padding: 2em 1em;
+		border-bottom: 1px solid #e9e9e9;
+		.title {
+
+			a {
+				color: #FF4500;
+			}
+		}
 	}
 }
 

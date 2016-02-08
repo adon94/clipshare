@@ -1,13 +1,28 @@
+<div class="page-header">
 <p id="notice"><%= notice %></p>
 
-<p>
-  <h1><%= @clip.title %></h1>
-  
-</p>
+<h1><%= @clip.title %></h1>
 
 <p>
-  <%= sanitize@clip.eurl, :tags=>['iframe']%>
+  <%= sanitize youtube_embed(@clip.eurl), :tags=>['iframe']%>
 </p>
-
-<%= link_to 'Edit', edit_clip_path(@clip) %> |
-<%= link_to 'Back', clips_path %>
+<h1><small>Submitted by <%= @clip.user.email %></small></h1>
+</div>
+<div class="btn-group pull-left">
+	<%= link_to like_clip_path(@clip), method: :put, class: "btn btn-default btn-sm" do %>
+		<span class="glyphicon glyphicon-chevron-up"></span>
+		Likes:
+		<%= @clip.get_upvotes.size %>
+	<% end %>
+	<%= link_to dislike_clip_path(@clip), method: :put, class: "btn btn-default btn-sm" do %>
+		<span class="glyphicon glyphicon-chevron-down"></span>
+		Dislikes:
+		<%= @clip.get_downvotes.size %>
+	<% end %>
+</div>
+<% if @clip.user == current_user -%>
+	<div class="btn-group">
+		<%= link_to 'Edit', edit_clip_path(@clip), class: "btn btn-default" %>
+		<%= link_to 'Remove', @clip, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
+	</div>
+<% end %>
