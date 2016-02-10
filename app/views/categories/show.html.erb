@@ -1,11 +1,19 @@
-<% @clips.order("created_at desc").each do |clip| %>
+<p id="notice"><%= notice %></p>
+
+<div class="page-header">
+	<p id="notice"><%= notice %></p>
+
+	<h1><%= @category.name %></h1>
+</div>
+
+
+<% @category.clips.order("created_at desc").each do |clip| %>
   <div class="clip row clearfix">
     <h2>
       <%= link_to clip.title, clip %><br>
 		<small class="author">Submitted <%= time_ago_in_words(clip.created_at) %> ago by <%= link_to clip.user.name, clip.user %></small>
-		<h2><small>Category: <%= link_to clip.category.name, clip.category %></small></hh2>
-		<br>
-		<div class="btn-group">
+	</h2>
+	<div class="btn-group">
 		<%= link_to like_clip_path(clip), method: :put, class: "btn btn-default btn-sm" do %>
 			<span class="glyphicon glyphicon-chevron-up"></span>
 			Likes:
@@ -17,5 +25,5 @@
 			<%= clip.get_downvotes.size %>
 		<% end %>
 	</div>
-	</div>
+  </div>
 <% end %>

@@ -1,28 +1,46 @@
 <div class="page-header">
-<p id="notice"><%= notice %></p>
+	<p id="notice"><%= notice %></p>
 
-<h1><%= @clip.title %></h1>
+	<h1><%= @clip.title %></h1>
 
-<p>
-  <%= sanitize youtube_embed(@clip.eurl), :tags=>['iframe']%>
-</p>
-<h1><small>Submitted by <%= @clip.user.email %></small></h1>
-</div>
-<div class="btn-group pull-left">
-	<%= link_to like_clip_path(@clip), method: :put, class: "btn btn-default btn-sm" do %>
-		<span class="glyphicon glyphicon-chevron-up"></span>
-		Likes:
-		<%= @clip.get_upvotes.size %>
-	<% end %>
-	<%= link_to dislike_clip_path(@clip), method: :put, class: "btn btn-default btn-sm" do %>
-		<span class="glyphicon glyphicon-chevron-down"></span>
-		Dislikes:
-		<%= @clip.get_downvotes.size %>
-	<% end %>
+	<p>
+	  <%= sanitize youtube_embed(@clip.eurl), :tags=>['iframe']%>
+	</p>
+	<h2><small>Submitted by <%= link_to @clip.user.name, @clip.user %></small></h2>
+	<h2><small>Category: <%= link_to @clip.category.name, @clip.category %></small></h2>
+
+	<div class="btn-group pull-left">
+		<%= link_to like_clip_path(@clip), method: :put, class: "btn btn-default btn-sm" do %>
+			<span class="glyphicon glyphicon-chevron-up"></span>
+			Likes:
+			<%= @clip.get_upvotes.size %>
+		<% end %>
+		<%= link_to dislike_clip_path(@clip), method: :put, class: "btn btn-default btn-sm" do %>
+			<span class="glyphicon glyphicon-chevron-down"></span>
+			Dislikes:
+			<%= @clip.get_downvotes.size %>
+		<% end %>
+	</div>
 </div>
 <% if @clip.user == current_user -%>
-	<div class="btn-group">
+	<div class="btn-group pull-right">
 		<%= link_to 'Edit', edit_clip_path(@clip), class: "btn btn-default" %>
 		<%= link_to 'Remove', @clip, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
 	</div>
 <% end %>
+<div class="clip row clearfix">
+<h3 class="comments_title">
+  <%= @clip.comments.count %> Comments
+</h3>
+
+<%= simple_form_for [@clip, Comment.new]  do |f| %>
+  <div class="field">
+    <%= f.text_area :body, class: "form-control" %>
+  </div>
+  <br>
+  <%= f.submit "Add Comment", class: "btn btn-primary" %>
+<% end %>
+</div>
+<div id="comments">
+  <%= render :partial => @clip.comments.order("created_at desc") %>
+</div>

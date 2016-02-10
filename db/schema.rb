@@ -11,18 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208154001) do
+ActiveRecord::Schema.define(version: 20160210132643) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "clips", force: :cascade do |t|
     t.string   "title"
     t.text     "eurl"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "user_id"
-    t.integer  "genre_id"
+    t.integer  "category_id"
   end
 
   add_index "clips", ["user_id"], name: "index_clips_on_user_id"
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "clip_id"
+    t.text     "body"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["clip_id"], name: "index_comments_on_clip_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "genres", force: :cascade do |t|
     t.string   "genre"
@@ -43,6 +60,7 @@ ActiveRecord::Schema.define(version: 20160208154001) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
