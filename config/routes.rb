@@ -2,8 +2,13 @@ Rails.application.routes.draw do
   resources :categories
   resources :comments
   resources :genres
+  resources :relationships,       only: [:create, :destroy]
   devise_for :users
-  resources :users, only: [:show]
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
   resources :clips do
 	member do
 		put "like", to: "clips#upvote"

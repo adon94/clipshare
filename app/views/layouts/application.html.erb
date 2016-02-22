@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<header class="navbar navbar-inverse" role="navigation">
+	<header class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="navbar-inner">
       <div class="container">
         <div id="logo" class="navbar-brand"><%= link_to "ClipShare", root_path %></div>
@@ -16,7 +16,7 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li><%= link_to 'Submit clip', new_clip_path %></li>
 							<!--<li><%= link_to 'Create Category', new_category_path %></li>-->
-							<li><%= link_to current_user.name, edit_user_registration_path %></li>
+							<li><%= link_to current_user.name, current_user %></li>
 							<li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
 						</ul>
 					<% else -%>

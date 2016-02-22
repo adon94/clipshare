@@ -4,8 +4,29 @@
 	<p id="notice"><%= notice %></p>
 
 	<h1><%= @user.name %></h1>
+	<h2><%= @user.age %></h2>
+<div class="stats">
+  <a href="<%= following_user_path(@user) %>", class="inactiveLink">
+    <strong id="following" class="stat">
+      <%= @user.following.count %>
+    </strong>
+    following
+  </a>
+  <a href="<%= followers_user_path(@user) %>", class="inactiveLink">
+    <strong id="followers" class="stat">
+      <%= @user.followers.count %>
+    </strong>
+    followers
+  </a>
 </div>
-
+</div>
+    <%= render 'follow_form' if user_signed_in? %>
+	<% if @user == current_user %>
+		<h2><% link_to "My Account", edit_user_registration_path %></h2>
+	<% end %>
+    <% if @user.clips.any? %>
+      <small><h3>Clips (<%= @user.clips.count %>)</h3></small>
+    <% end %>
 
 <% @user.clips.order("created_at desc").each do |clip| %>
   <div class="clip row clearfix">
